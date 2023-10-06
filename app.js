@@ -12,6 +12,7 @@ let configs = {
 };
 
 configs.swagger.swaggerDefinition.host = process.env.APP_HOST;
+configs.swagger.swaggerDefinition.schemes = [process.env.APP_METHOD];
 
 let cors = require("cors")(configs.cors);
 let logger = require("morgan")("dev");

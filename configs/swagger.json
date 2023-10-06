@@ -1,17 +1,14 @@
 {
-    "swaggerDefinition": {
-        "info": {
-            "title": "API Documentation",
-            "version": "1.0.0",
-            "description": "Using Nodejs tools helps quickly with programming tasks"
-        },
-        "basePath": "/api/",
-        "schemes": [
-            "http"
-        ]
+  "swaggerDefinition": {
+    "info": {
+      "title": "Tài liệu API",
+      "version": "1.0.0",
+      "description": "Tổng hợp công cụ NodeJs trong hệ thống devhongzui.com"
     },
-    "apis": [
-        "./routes/api/random-string.js",
-        "./routes/api/minify-js.js"
-    ]
+    "basePath": "/api/"
+  },
+  "apis": [
+    "./routes/api/random-string.js",
+    "./routes/api/minify-js.js"
+  ]
 }
