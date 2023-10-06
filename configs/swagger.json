@@ -1,0 +1,17 @@
+{
+    "swaggerDefinition": {
+        "info": {
+            "title": "API Documentation",
+            "version": "1.0.0",
+            "description": "Using Nodejs tools helps quickly with programming tasks"
+        },
+        "basePath": "/api/",
+        "schemes": [
+            "http"
+        ]
+    },
+    "apis": [
+        "./routes/api/random-string.js",
+        "./routes/api/minify-js.js"
+    ]
+}

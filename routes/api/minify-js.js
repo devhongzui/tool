@@ -1,60 +1,123 @@
 let express = require("express");
 let router = express.Router();
-let uglify = require("uglify-js");
+let minifyJs = require("../../controllers/api/minify-js");
 
-router.post("/", (req, res) => {
-  let json = getResult(req.body);
-
-  res.status(200).json(json);
-});
-
-function getResult(body) {
-  let code = body.code || "";
-  let annotations = body.annotations || false;
-  let compress = body.compress || {};
-  let expression = body.expression || false;
-  let ie = body.ie || false;
-  let keep_fargs = body.keep_fargs || false;
-  let keep_fnames = body.keep_fnames || false;
-  let mangle = body.mangle || true;
-  let module = body.module || false;
-  let nameCache = body.nameCache || null;
-  let output = body.output || null;
-  let parse = body.parse || {};
-  let sourceMap = body.sourceMap || false;
-  let toplevel = body.toplevel || false;
-  let v8 = body.v8 || false;
-  let warnings = body.warnings || false;
-  let webkit = body.webkit || false;
-
-  let result = uglify.minify(code, {
-    annotations: annotations,
-    compress: compress,
-    expression: expression,
-    ie: ie,
-    keep_fargs: keep_fargs,
-    keep_fnames: keep_fnames,
-    mangle: mangle,
-    module: module,
-    nameCache: nameCache,
-    output: output,
-    parse: parse,
-    sourceMap: sourceMap,
-    toplevel: toplevel,
-    v8: v8,
-    warnings: warnings,
-    webkit: webkit,
-  });
-
-  return result.error
-    ? {
-        status: "failed",
-        message: result.error,
-      }
-    : {
-        status: "successfully",
-        message: result.code,
-      };
-}
+/**
+ * @swagger
+ *
+ * paths:
+ *   /minify-js:
+ *     post:
+ *       parameters:
+ *         - in: body
+ *           name: options
+ *           description: Mã JavaScript cần tối ưu hóa.
+ *           schema:
+ *             type: object
+ *             properties:
+ *               string_code:
+ *                 type: string
+ *                 default:
+ *                 example: console.log('Hello World')
+ *               string_annotations:
+ *                 type: boolean
+ *                 default: false
+ *                 example: false
+ *               string_compress:
+ *                 type: object
+ *                 default: {}
+ *                 example: {}
+ *               string_expression:
+ *                 type: boolean
+ *                 default: false
+ *                 example: false
+ *               string_ie:
+ *                 type: boolean
+ *                 default: false
+ *                 example: false
+ *               string_keep_fargs:
+ *                 type: boolean
+ *                 default: false
+ *                 example: false
+ *               string_keep_fnames:
+ *                 type: boolean
+ *                 default: false
+ *                 example: false
+ *               string_mangle:
+ *                 type: boolean
+ *                 default: true
+ *                 example: true
+ *               string_module:
+ *                 type: boolean
+ *                 default: false
+ *                 example: false
+ *               string_nameCache:
+ *                 type: string
+ *                 default: null
+ *                 example: null
+ *               string_output:
+ *                 type: string
+ *                 default: null
+ *                 example: null
+ *               string_parse:
+ *                 type: object
+ *                 default: {}
+ *                 example: {}
+ *               string_sourceMap:
+ *                 type: boolean
+ *                 default: false
+ *                 example: false
+ *               string_toplevel:
+ *                 type: boolean
+ *                 default: false
+ *                 example: false
+ *               string_v8:
+ *                 type: boolean
+ *                 default: false
+ *                 example: false
+ *               string_warnings:
+ *                 type: boolean
+ *                 default: false
+ *                 example: false
+ *               string_webkit:
+ *                 type: boolean
+ *                 default: false
+ *                 example: false
+ *       responses:
+ *         200:
+ *           description: Thành công
+ *           schema:
+ *             type: object
+ *             properties:
+ *               status:
+ *                 type: string
+ *                 description: Trạng thái
+ *                 example: successfully
+ *               message:
+ *                 type: string
+ *                 description: Thông báo
+ *                 example: console.log('Hello World')
+ *         422:
+ *           description: Thất bại
+ *           schema:
+ *             type: object
+ *             properties:
+ *               status:
+ *                 type: string
+ *                 description: Trạng thái
+ *                 example: failed
+ *               message:
+ *                 type: object
+ *                 description: Thông báo
+ *                 example:
+ *                   {
+ *                     "message": "Unexpected token: name «World», expected: punc «;»",
+ *                     "filename": "0",
+ *                     "line": 1,
+ *                     "col": 16,
+ *                     "pos": 16,
+ *                   }
+ */
+router.post("/", minifyJs.show);
 
 module.exports = router;
