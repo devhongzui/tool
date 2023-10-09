@@ -1,6 +1,6 @@
 import swaggerJSDoc from "swagger-jsdoc";
 import SwaggerOptions from "../config/swagger.js";
 
-let swaggerDoc = swaggerJSDoc(SwaggerOptions);
+let SwaggerDoc = swaggerJSDoc(SwaggerOptions);
 
-export default swaggerDoc;
+export default SwaggerDoc;

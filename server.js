@@ -4,7 +4,7 @@ import e from "cors";
 import CorsOptions from "./config/cors.js";
 import morgan from "morgan";
 import UrlOptions from "./config/urlEncoded.js";
-import swaggerDoc from "./routes/api-docs.js";
+import SwaggerDoc from "./routes/api-docs.js";
 import swaggerUiExpress from "swagger-ui-express";
 import RandomStringRouter from "./routes/api/randomstring.js";
 import MinifyRouter from "./routes/api/minify.js";
@@ -13,7 +13,7 @@ import ErrorHandle from "./routes/500.js";
 
 let app = express();
 
-// ultilities
+// utilities
 app.use(morgan("dev"));
 app.use(e(CorsOptions));
 
@@ -26,7 +26,7 @@ app.use(express.static("./public"));
 app.use(
   "/api/docs",
   swaggerUiExpress.serve,
-  swaggerUiExpress.setup(swaggerDoc)
+  swaggerUiExpress.setup(SwaggerDoc)
 );
 app.use("/api/random-string", RandomStringRouter);
 app.use("/api/minify-js", MinifyRouter);
