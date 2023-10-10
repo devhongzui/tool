@@ -1,4 +1,3 @@
-import { request } from "express";
 import Province from "../../../model/province.js";
 
 export function show(_, res) {
