@@ -6,7 +6,7 @@ let SwaggerOptions = {
       description:
         "Tiếp cận các công cụ hỗ trợ lập trình trong hệ thống devhongzui.com",
     },
-    host: process.env.APP_URL + ":" + process.env.APP_PORT,
+    host: process.env.APP_API_HOST,
     basePath: "/api/",
     schemes: [process.env.APP_SCHEME],
   },
