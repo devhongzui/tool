@@ -31,7 +31,7 @@ export function show(req, res) {
   } catch (error) {
     res.status(422).json({
       status: "failed",
-      message: error,
+      message: error.message,
       result: null,
     });
   }

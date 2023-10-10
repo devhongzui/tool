@@ -1,7 +1,14 @@
+import { request } from "express";
 import Province from "../../../model/province.js";
 
 export function show(_, res) {
   Province.find()
+    .then((succes) => success(succes, res))
+    .catch((error) => fail(error, res));
+}
+
+export function fulltextSearch(req, res) {
+  Province.find({ $text: { $search: req.params.search_query } })
     .then((succes) => success(succes, res))
     .catch((error) => fail(error, res));
 }
@@ -17,7 +24,7 @@ function success(value, res) {
 function fail(value, res) {
   res.status(200).json({
     status: "failed",
-    message: value,
+    message: value.message,
     result: null,
   });
 }

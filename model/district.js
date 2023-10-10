@@ -1,15 +1,20 @@
 import mongoose from "mongoose";
 
-let District = mongoose.model(
-  "district",
-  new mongoose.Schema({
-    name: String,
-    code: Number,
-    division_type: String,
-    codename: String,
-    province_code: Number,
-    wards: Array,
-  })
-);
+let Schema = new mongoose.Schema({
+  name: String,
+  code: Number,
+  division_type: String,
+  codename: String,
+  province_code: Number,
+  wards: Array,
+});
+
+Schema.index({
+  name: "text",
+  division_type: "text",
+  codename: "text",
+});
+
+let District = mongoose.model("district", Schema);
 
 export default District;
