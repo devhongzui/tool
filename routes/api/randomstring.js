@@ -79,7 +79,7 @@ let RandomStringRouter = Router();
  *               message:
  *                 type: string
  *                 description: Thông báo
- *                 example: Create success!!
+ *                 example: Create success!
  *               result:
  *                 type: string
  *                 description: Kết quả
@@ -94,9 +94,9 @@ let RandomStringRouter = Router();
  *                 description: Trạng thái
  *                 example: failed
  *               message:
- *                 type: object
+ *                 type: string
  *                 description: Thông báo
- *                 example: {}
+ *                 example: ""
  *               result:
  *                 type: string
  *                 description: Kết quả
