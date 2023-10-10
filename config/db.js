@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 
 let connection = process.env.DB_CONNECTION;
+let username = process.env.DB_USERNAME;
+let password = encodeURIComponent(process.env.DB_PASSWORD);
 let host = process.env.DB_HOST;
 let port = process.env.DB_PORT;
 let database = process.env.DB_DATABASE;
@@ -8,10 +10,13 @@ let database = process.env.DB_DATABASE;
 switch (connection) {
   case "mongodb":
     mongoose
-      .connect(`mongodb://${host}:${port}/${database}`, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      })
+      .connect(
+        `mongodb://${username}:${password}@${host}:${port}/${database}?authSource=admin`,
+        {
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+        }
+      )
       .then(() => {
         console.log(
           `Connected successfully to MongoDB on IP: ${host} - Port: ${port}`
