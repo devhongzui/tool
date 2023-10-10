@@ -11,7 +11,6 @@ let Schema = new mongoose.Schema({
 
 Schema.index({
   name: "text",
-  division_type: "text",
   codename: "text",
 });
 
