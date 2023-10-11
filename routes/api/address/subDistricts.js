@@ -1,12 +1,3 @@
-import { Router } from "express";
-import {
-  fulltextSearch,
-  search,
-  show,
-} from "../../../controllers/api/address/subDistricts.js";
-
-let AddressSubDistrictsRouter = Router();
-
 /**
  * @swagger
  *
@@ -60,8 +51,6 @@ let AddressSubDistrictsRouter = Router();
  *               description: Kết quả
  *               example: null
  */
-
-AddressSubDistrictsRouter.get("/", show);
 
 /**
  * @swagger
@@ -148,8 +137,6 @@ AddressSubDistrictsRouter.get("/", show);
  *               example: null
  */
 
-AddressSubDistrictsRouter.get("/search", search);
-
 /**
  * @swagger
  *
@@ -210,7 +197,3 @@ AddressSubDistrictsRouter.get("/search", search);
  *               description: Kết quả
  *               example: null
  */
-
-AddressSubDistrictsRouter.get("/fulltextsearch/:search_query", fulltextSearch);
-
-export default AddressSubDistrictsRouter;

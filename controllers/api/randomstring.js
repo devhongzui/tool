@@ -1,15 +1,15 @@
 import { generate } from "randomstring";
 
-export function show(req, res) {
+export let show = (_, args) => {
   try {
-    let count = parseInt(req.query.string_count || 5);
-    let length = parseInt(req.query.string_length || 32);
-    let start = req.query.string_start || "";
-    let end = req.query.string_end || "";
-    let readable = req.query.string_readable || false;
-    let charset = req.query.string_charset || "alphanumeric";
-    let capitalization = req.query.string_capitalization || null;
-    let separator = req.query.string_separator || "\n";
+    let count = parseInt(args.string_count || 5);
+    let length = parseInt(args.string_length || 32);
+    let start = args.string_start || "";
+    let end = args.string_end || "";
+    let readable = args.string_readable || false;
+    let charset = args.string_charset || "alphanumeric";
+    let capitalization = args.string_capitalization || null;
+    let separator = args.string_separator || "\n";
 
     let result = [];
     for (let index = 0; index < count; index++) {
@@ -23,16 +23,16 @@ export function show(req, res) {
       result.push(start + middle + end);
     }
 
-    res.status(200).json({
+    return {
       status: "successfully",
       message: "Create success!",
       result: result.join(separator),
-    });
+    };
   } catch (error) {
-    res.status(422).json({
+    return {
       status: "failed",
       message: error.message,
       result: null,
-    });
+    };
   }
-}
+};

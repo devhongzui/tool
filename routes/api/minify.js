@@ -1,8 +1,3 @@
-import { Router } from "express";
-import { show } from "../../controllers/api/minify.js";
-
-let MinifyRouter = Router();
-
 /**
  * @swagger
  *
@@ -145,7 +140,3 @@ let MinifyRouter = Router();
  *                 description: Kết quả
  *                 example: null
  */
-
-MinifyRouter.post("/", show);
-
-export default MinifyRouter;

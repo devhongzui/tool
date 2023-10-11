@@ -1,26 +1,24 @@
 import { minify } from "uglify-js";
 
-export function show(req, res) {
-  let error_message;
-
+export let show = (_, args) => {
   try {
-    let code = req.body.code || "";
-    let annotations = req.body.annotations || false;
-    let compress = req.body.compress || {};
-    let expression = req.body.expression || false;
-    let ie = req.body.ie || false;
-    let keep_fargs = req.body.keep_fargs || false;
-    let keep_fnames = req.body.keep_fnames || false;
-    let mangle = req.body.mangle || true;
-    let module = req.body.module || false;
-    let nameCache = req.body.nameCache || null;
-    let output = req.body.output || null;
-    let parse = req.body.parse || {};
-    let sourceMap = req.body.sourceMap || false;
-    let toplevel = req.body.toplevel || false;
-    let v8 = req.body.v8 || false;
-    let warnings = req.body.warnings || false;
-    let webkit = req.body.webkit || false;
+    let code = args.code || "";
+    let annotations = args.annotations || false;
+    let compress = args.compress || {};
+    let expression = args.expression || false;
+    let ie = args.ie || false;
+    let keep_fargs = args.keep_fargs || false;
+    let keep_fnames = args.keep_fnames || false;
+    let mangle = args.mangle || true;
+    let module = args.module || false;
+    let nameCache = args.nameCache || null;
+    let output = args.output || null;
+    let parse = args.parse || {};
+    let sourceMap = args.sourceMap || false;
+    let toplevel = args.toplevel || false;
+    let v8 = args.v8 || false;
+    let warnings = args.warnings || false;
+    let webkit = args.webkit || false;
 
     let result = minify(code, {
       annotations: annotations,
@@ -42,20 +40,22 @@ export function show(req, res) {
     });
 
     if (result.error) {
-      error_message = result.error;
-      throw new Error();
+      let error = result.error;
+      let message = `${error.message} (Line: ${error.line}, Column: ${error.col}, Position: ${error.pos})`;
+
+      throw new Error(message);
     }
 
-    res.status(200).json({
+    return {
       status: "successfully",
       message: "Optimization success!",
       result: result.code,
-    });
+    };
   } catch (error) {
-    res.status(422).json({
+    return {
       status: "failed",
-      message: error_message,
+      message: error.message,
       result: null,
-    });
+    };
   }
-}
+};

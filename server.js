@@ -1,25 +1,22 @@
 import "dotenv/config";
 import "./config/db.js";
 import express, { urlencoded } from "express";
-import e from "cors";
 import CorsOptions from "./config/cors.js";
 import morgan from "morgan";
+import { expressMiddleware } from "@apollo/server/express4";
+import server from "./config/graphql.js";
+import cors from "cors";
 import UrlOptions from "./config/urlEncoded.js";
 import SwaggerDoc from "./routes/api-docs.js";
 import swaggerUiExpress from "swagger-ui-express";
-import RandomStringRouter from "./routes/api/randomstring.js";
-import MinifyRouter from "./routes/api/minify.js";
-import AddressProvincesRouter from "./routes/api/address/provinces.js";
-import AddressDistrictsRouter from "./routes/api/address/districts.js";
-import AddressSubDistrictsRouter from "./routes/api/address/subDistricts.js";
-import NotFound from "./routes/404.js";
-import ErrorHandle from "./routes/500.js";
+import NotFound from "./controllers/notFound.js";
+import ErrorHandle from "./controllers/errorHandle.js";
 
 let app = express();
 
 // utilities
 app.use(morgan("dev"));
-app.use(e(CorsOptions));
+app.use(cors(CorsOptions));
 
 // middle-wares
 app.use(express.json());
@@ -28,20 +25,23 @@ app.use(express.static("./public"));
 
 // routes
 app.use(
-  "/api/docs",
+  "/graphql",
+  cors(CorsOptions),
+  express.json(),
+  expressMiddleware(server)
+);
+app.use(
+  "/api-docs",
   swaggerUiExpress.serve,
   swaggerUiExpress.setup(SwaggerDoc)
 );
-app.use("/api/random-string", RandomStringRouter);
-app.use("/api/minify-js", MinifyRouter);
-app.use("/api/address/provinces", AddressProvincesRouter);
-app.use("/api/address/districts", AddressDistrictsRouter);
-app.use("/api/address/sub-districts", AddressSubDistrictsRouter);
 app.use(NotFound);
 app.use(ErrorHandle);
 
 let url = process.env.APP_URL;
 let port = process.env.APP_PORT;
-app.listen(port, () =>
-  console.log(`Node App running on IP: ${url} - Port: ${port}`)
-);
+app.listen(port, () => {
+  console.log(`Node App running on: http://${url}:${port}`);
+  console.log(`GraphQL running on:  http://${url}:${port}/graphql `);
+  console.log(`API Docs on:         http://${url}:${port}/api-docs `);
+});

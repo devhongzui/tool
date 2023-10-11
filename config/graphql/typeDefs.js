@@ -1,0 +1,194 @@
+const typeDefs = `
+  type Province{
+    name: String,
+    code: Int,
+    division_type: String,
+    codename: String,
+    phone_code: Int,
+    districts: [District],
+  }
+
+  type District{
+    name: String,
+    code: Int,
+    division_type: String,
+    codename: String,
+    province_code: Int,
+    wards: [SubDistrict],
+  }
+
+  type SubDistrict{
+    name: String,
+    code: Int,
+    division_type: String,
+    codename: String,
+    district_code: Int,
+  }
+
+  input MinifyJsCompressOption{
+    annotations: Boolean,
+    arguments: Boolean,
+    arrows: Boolean,
+    assignments: Boolean,
+    awaits: Boolean,
+    booleans: Boolean,
+    collapse_vars: Boolean,
+    comparisons: Boolean,
+    conditionals: Boolean,
+    dead_code: Boolean,
+    default_values: Boolean,
+    directives: Boolean,
+    drop_console: Boolean,
+    drop_debugger: Boolean,
+    evaluate: Boolean,
+    expression: Boolean,
+    functions: Boolean,
+    global_defs: Boolean,
+    hoist_exports: Boolean,
+    hoist_funs: Boolean,
+    hoist_props: Boolean,
+    hoist_vars: Boolean,
+    if_return: Boolean,
+    imports: Boolean,
+    inline: Int
+    join_vars: Boolean,
+    keep_fargs: Boolean,
+    keep_infinity: Boolean,
+    loops: Boolean,
+    merge_vars: Boolean,
+    module: Boolean,
+    negate_iife: Boolean,
+    objects: Boolean,
+    passes: Int,
+    properties: Boolean,
+    pure_funcs: String,
+    pure_getters: String,
+    reduce_funcs: Boolean,
+    reduce_vars: Boolean,
+    rests: Boolean,
+    sequences: Boolean,
+    side_effects: Boolean,
+    spreads: Boolean,
+    strings: Boolean,
+    switches: Boolean,
+    templates: Boolean,
+    top_retain: String,
+    toplevel: Boolean,
+    typeofs: Boolean,
+    unsafe: Boolean,
+    unsafe_comps: Boolean,
+    unsafe_Function: Boolean,
+    unsafe_math: Boolean,
+    unsafe_proto: Boolean,
+    unsafe_regexp: Boolean,
+    unsafe_undefined: Boolean,
+    unused: String,
+    varify: Boolean,
+    yields: Boolean,
+  }
+
+  input MinifyJsOutputOption{
+    annotations: Boolean,
+    ascii_only: Boolean,
+    beautify: Boolean,
+    braces: Boolean,
+    comments: String,
+    extendscript: Boolean,
+    galio: Boolean,
+    indent_level: Int
+    indent_start: Int,
+    inline_script: Boolean,
+    keep_quoted_props: Boolean,
+    max_line_len: Boolean,
+    preamble: String,
+    preserve_line: Boolean,
+    quote_keys: Boolean,
+    quote_style: MinifyJsOutputOptionQuoteStyle,
+    semicolons: Boolean,
+    shebang: Boolean,
+    width: Int,
+    wrap_iife: Boolean,
+  }
+
+  enum MinifyJsOutputOptionQuoteStyle{
+    GZIP,
+    SINGLE,
+    DOUBLE,
+    ORIGINAL,
+  }
+
+  input MinifyJsParseOption{
+    bare_returns: Boolean,
+    html5_comments: Boolean,
+    module: Boolean,
+    shebang: Boolean,
+  }
+
+  type Result{
+    status: String
+    message: String
+    result: String
+  }
+  
+  type Query{
+    # Province
+    provinces: [Province],
+    province_search(
+      name: String,
+      code: Int,
+      division_type: String,
+      codename:String,
+      phone_code: Int): [Province],
+    province_fulltextsearch(search_query: String): [Province],
+
+    # District
+    districts: [District],
+    district_search(
+      name: String,
+      code: Int,
+      division_type: String,
+      codename:String,
+      province_code: Int): [District],
+    district_fulltextsearch(search_query: String): [District],
+
+    # Sub District
+    sub_districts: [SubDistrict],
+    sub_district_search(
+      name: String,
+      code: Int,
+      division_type: String,
+      codename:String,
+      district_code: Int): [SubDistrict],
+    sub_district_fulltextsearch(search_query: String): [SubDistrict],
+
+    random_string(
+      string_count: Int,
+      string_length: Int,
+      string_start: String,
+      string_end: String,
+      string_readable: Boolean,
+      string_charset: [String],
+      string_capitalization: String,
+      string_separator: String): Result
+    minify_js(
+      code: String,
+      annotations: Boolean,
+      compress: MinifyJsCompressOption,
+      expression: Boolean,
+      ie: Boolean,
+      keep_fargs: Boolean,
+      keep_fnames: Boolean,
+      mangle: Boolean,
+      module: Boolean,
+      nameCache: String,
+      output: MinifyJsOutputOption,
+      parse: MinifyJsParseOption,
+      sourceMap: Boolean,
+      toplevel: Boolean,
+      v8: Boolean,
+      warnings: Boolean,
+      webkit: Boolean): Result
+  }
+`;
+
+export default typeDefs;

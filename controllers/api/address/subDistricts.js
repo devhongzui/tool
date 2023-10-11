@@ -1,19 +1,11 @@
 import SubDistrict from "../../../model/subDistrict.js";
 
-export function show(_, res) {
-  SubDistrict.find()
-    .then((succes) => success(succes, res))
-    .catch((error) => fail(error, res));
-}
+export let show = async () => await SubDistrict.find();
 
-export function search(req, res) {
+export let search = async (_, args) => {
   let options = {};
 
-  let name = req.query.name;
-  let code = req.query.code;
-  let division_type = req.query.division_type;
-  let codename = req.query.codename;
-  let district_code = req.query.district_code;
+  let { name, code, division_type, codename, district_code } = args;
 
   if (name != undefined) {
     options.name = { $regex: name };
@@ -30,36 +22,12 @@ export function search(req, res) {
   if (district_code != undefined) {
     options.district_code = parseInt(district_code);
   }
-
   if (Object.keys(options).length === 0) {
-    fail({ message: "Options cannot be empty!" }, res);
-
-    return;
+    return null;
   }
 
-  SubDistrict.find(options)
-    .then((succes) => success(succes, res))
-    .catch((error) => fail(error, res));
-}
+  return await SubDistrict.find(options);
+};
 
-export function fulltextSearch(req, res) {
-  SubDistrict.find({ $text: { $search: req.params.search_query } })
-    .then((succes) => success(succes, res))
-    .catch((error) => fail(error, res));
-}
-
-function success(value, res) {
-  res.status(200).json({
-    status: "successfully",
-    message: "Retrieve data successfully!",
-    result: value,
-  });
-}
-
-function fail(value, res) {
-  res.status(200).json({
-    status: "failed",
-    message: value.message,
-    result: null,
-  });
-}
+export let fulltextSearch = async (_, args) =>
+  await SubDistrict.find({ $text: { $search: args.search_query } });

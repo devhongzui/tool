@@ -1,19 +1,11 @@
 import Province from "../../../model/province.js";
 
-export function show(_, res) {
-  Province.find()
-    .then((succes) => success(succes, res))
-    .catch((error) => fail(error, res));
-}
+export let show = async () => await Province.find();
 
-export function search(req, res) {
+export let search = async (_, args) => {
   let options = {};
 
-  let name = req.query.name;
-  let code = req.query.code;
-  let division_type = req.query.division_type;
-  let codename = req.query.codename;
-  let phone_code = req.query.phone_code;
+  let { name, code, division_type, codename, phone_code } = args;
 
   if (name != undefined) {
     options.name = { $regex: name };
@@ -30,36 +22,12 @@ export function search(req, res) {
   if (phone_code != undefined) {
     options.phone_code = parseInt(phone_code);
   }
-
   if (Object.keys(options).length === 0) {
-    fail({ message: "Options cannot be empty!" }, res);
-
-    return;
+    return null;
   }
 
-  Province.find(options)
-    .then((succes) => success(succes, res))
-    .catch((error) => fail(error, res));
-}
+  return await Province.find(options);
+};
 
-export function fulltextSearch(req, res) {
-  Province.find({ $text: { $search: req.params.search_query } })
-    .then((succes) => success(succes, res))
-    .catch((error) => fail(error, res));
-}
-
-function success(value, res) {
-  res.status(200).json({
-    status: "successfully",
-    message: "Retrieve data successfully!",
-    result: value,
-  });
-}
-
-function fail(value, res) {
-  res.status(200).json({
-    status: "failed",
-    message: value.message,
-    result: null,
-  });
-}
+export let fulltextSearch = async (_, args) =>
+  await Province.find({ $text: { $search: args.search_query } });

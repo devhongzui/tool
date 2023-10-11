@@ -1,8 +1,3 @@
-import { Router } from "express";
-import { show } from "../../controllers/api/randomstring.js";
-
-let RandomStringRouter = Router();
-
 /**
  * @swagger
  *
@@ -102,7 +97,3 @@ let RandomStringRouter = Router();
  *                 description: Kết quả
  *                 example: null
  */
-
-RandomStringRouter.get("/", show);
-
-export default RandomStringRouter;
