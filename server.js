@@ -23,25 +23,41 @@ app.use(express.json());
 app.use(urlencoded(UrlOptions));
 app.use(express.static("./public"));
 
+let path = {
+  api: "/api",
+  docs: "/docs",
+};
+
 // routes
-app.use(
-  "/graphql",
-  cors(CorsOptions),
-  express.json(),
-  expressMiddleware(server)
-);
-app.use(
-  "/api-docs",
-  swaggerUiExpress.serve,
-  swaggerUiExpress.setup(SwaggerDoc)
-);
+app.use(path.api, expressMiddleware(server));
+app.use(path.docs, swaggerUiExpress.serve, swaggerUiExpress.setup(SwaggerDoc));
 app.use(NotFound);
 app.use(ErrorHandle);
 
 let url = process.env.APP_URL;
 let port = process.env.APP_PORT;
+
+let db_username = process.env.DB_USERNAME;
+let db_password = encodeURIComponent(process.env.DB_PASSWORD);
+let db_host = process.env.DB_HOST;
+let db_port = process.env.DB_PORT;
+let db_database = process.env.DB_DATABASE;
+
+class Row {
+  constructor(service, address) {
+    this.service = service;
+    this.address = address;
+  }
+}
+
 app.listen(port, () => {
-  console.log(`Node App running on: http://${url}:${port}`);
-  console.log(`GraphQL running on:  http://${url}:${port}/graphql `);
-  console.log(`API Docs on:         http://${url}:${port}/api-docs `);
+  console.table([
+    new Row("NodeJs", `http://${url}:${port}`),
+    new Row(
+      "MongoDB",
+      `mongodb://${db_username}:${db_password}@${db_host}:${db_port}/${db_database}?authSource=admin`
+    ),
+    new Row("GraphQL", `http://${url}:${port}${path.api}`),
+    new Row("Swageer", `http://${url}:${port}${path.docs}`),
+  ]);
 });

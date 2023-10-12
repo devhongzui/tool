@@ -42,6 +42,7 @@ let resolvers = {
     // Random String
     random_string: (parent, args) =>
       showApiControllerRandomString(parent, args),
+    // Minify Js
     minify_js: (parent, args) => showApiControllerMinifyJs(parent, args),
   },
 };
