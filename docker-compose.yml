@@ -1,0 +1,38 @@
+# Copyright VMware, Inc.
+# SPDX-License-Identifier: APACHE-2.0
+
+version: "2.1"
+
+services:
+  mongodb:
+    container_name: DevHongZui-MongoDB
+    restart: always
+    image: docker.io/bitnami/mongodb:7.0
+    ports:
+      - "27017:27017"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=no
+      - MONGODB_ROOT_PASSWORD=root
+    volumes:
+      - "mongodb_data:/bitnami/mongodb"
+    networks:
+      - devhongzui-network
+  node:
+    container_name: DevHongZui-Node-Tool
+    tty: true
+    image: docker.io/bitnami/node:18.18.0
+    ports:
+      - "3000:3000"
+    volumes:
+      - "../www/tool.devhongzui.com:/app"
+    depends_on:
+      - mongodb
+    networks:
+      - devhongzui-network
+
+volumes:
+  mongodb_data:
+    driver: local
+networks:
+  devhongzui-network:
+    driver: bridge
