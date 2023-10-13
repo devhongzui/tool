@@ -188,6 +188,12 @@ const typeDefs = `
       v8: Boolean,
       warnings: Boolean,
       webkit: Boolean): Result
+    encode_decode(
+      isEncode: Boolean,
+      algorithm: String,
+      secret: String,
+      key: String,
+    ): Result
   }
 `;
 

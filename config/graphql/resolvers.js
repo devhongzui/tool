@@ -1,49 +1,49 @@
 import {
-  show as showApiControllerAddressProvinces,
-  search as searchApiControllerAddressProvinces,
-  fulltextSearch as fullTextSearchApiControllerAddressProvinces,
+  show as showAddressProvinces,
+  search as searchAddressProvinces,
+  fulltextSearch as fullTextSearchAddressProvinces,
 } from "../../controllers/api/address/provinces.js";
 import {
-  show as showApiControllerAddressDistricts,
-  search as searchApiControllerAddressDistricts,
-  fulltextSearch as fullTextSearchApiControllerAddressDistricts,
+  show as showAddressDistricts,
+  search as searchAddressDistricts,
+  fulltextSearch as fullTextSearchAddressDistricts,
 } from "../../controllers/api/address/districts.js";
 import {
-  show as showApiControllerAddressSubDistricts,
-  search as searchApiControllerAddressSubDistricts,
-  fulltextSearch as fullTextSearchApiControllerAddressSubDistricts,
+  show as showAddressSubDistricts,
+  search as searchAddressSubDistricts,
+  fulltextSearch as fullTextSearchAddressSubDistricts,
 } from "../../controllers/api/address/subDistricts.js";
-import { show as showApiControllerRandomString } from "../../controllers/api/randomstring.js";
-import { show as showApiControllerMinifyJs } from "../../controllers/api/minify.js";
+import { show as showRandomString } from "../../controllers/api/randomstring.js";
+import { show as showMinifyJs } from "../../controllers/api/minify.js";
+import { show as showEncodeDeCode } from "../../controllers/api/encode-decode.js";
 
 let resolvers = {
   Query: {
     // Province
-    provinces: showApiControllerAddressProvinces,
-    province_search: (parent, args) =>
-      searchApiControllerAddressProvinces(parent, args),
+    provinces: showAddressProvinces,
+    province_search: (parent, args) => searchAddressProvinces(parent, args),
     province_fulltextsearch: (parent, args) =>
-      fullTextSearchApiControllerAddressProvinces(parent, args),
+      fullTextSearchAddressProvinces(parent, args),
 
     // District
-    districts: showApiControllerAddressDistricts,
-    district_search: (parent, args) =>
-      searchApiControllerAddressDistricts(parent, args),
+    districts: showAddressDistricts,
+    district_search: (parent, args) => searchAddressDistricts(parent, args),
     district_fulltextsearch: (parent, args) =>
-      fullTextSearchApiControllerAddressDistricts(parent, args),
+      fullTextSearchAddressDistricts(parent, args),
 
     // Sub Districts
-    sub_districts: showApiControllerAddressSubDistricts,
+    sub_districts: showAddressSubDistricts,
     sub_district_search: (parent, args) =>
-      searchApiControllerAddressSubDistricts(parent, args),
+      searchAddressSubDistricts(parent, args),
     sub_district_fulltextsearch: (parent, args) =>
-      fullTextSearchApiControllerAddressSubDistricts(parent, args),
+      fullTextSearchAddressSubDistricts(parent, args),
 
     // Random String
-    random_string: (parent, args) =>
-      showApiControllerRandomString(parent, args),
+    random_string: (parent, args) => showRandomString(parent, args),
     // Minify Js
-    minify_js: (parent, args) => showApiControllerMinifyJs(parent, args),
+    minify_js: (parent, args) => showMinifyJs(parent, args),
+    // Encode Decode
+    encode_decode: (parent, args) => showEncodeDeCode(parent, args),
   },
 };
 
