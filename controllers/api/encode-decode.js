@@ -7,7 +7,7 @@ export let show = (_, args) => {
     let isEncode = args.isEncode || false;
     let algorithm = args.algorithm || "MD5";
     let secret = args.secret || "";
-    let key = args.args || "";
+    let key = args.key || "";
 
     if (isEncode)
       result = checkHash(algorithm)
