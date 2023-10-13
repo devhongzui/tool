@@ -2,14 +2,16 @@ import { generate } from "randomstring";
 
 export let show = (_, args) => {
   try {
-    let count = parseInt(args.string_count || 5);
-    let length = parseInt(args.string_length || 32);
-    let start = args.string_start || "";
-    let end = args.string_end || "";
-    let readable = args.string_readable || false;
-    let charset = args.string_charset || "alphanumeric";
-    let capitalization = args.string_capitalization || null;
-    let separator = args.string_separator || "\n";
+    let count = parseInt(args.count || 5);
+    let length = parseInt(args.length || 32);
+    let start = args.start || "";
+    let end = args.end || "";
+    let readable = args.readable || false;
+    let charset = args.charset || "alphanumeric";
+    let capitalization = args.capitalization || null;
+    let separator = args.separator || "\n";
+
+    if (charset.length === 0) charset = "alphanumeric";
 
     let result = [];
     for (let index = 0; index < count; index++) {

@@ -162,14 +162,14 @@ const typeDefs = `
     sub_district_fulltextsearch(search_query: String): [SubDistrict],
 
     random_string(
-      string_count: Int,
-      string_length: Int,
-      string_start: String,
-      string_end: String,
-      string_readable: Boolean,
-      string_charset: [String],
-      string_capitalization: String,
-      string_separator: String): Result
+      count: Int,
+      length: Int,
+      start: String,
+      end: String,
+      readable: Boolean,
+      charset: [String],
+      capitalization: String,
+      separator: String): Result
     minify_js(
       code: String,
       annotations: Boolean,

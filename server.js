@@ -1,7 +1,6 @@
 import "dotenv/config";
 import "./config/db.js";
 import express, { urlencoded } from "express";
-import CorsOptions from "./config/cors.js";
 import morgan from "morgan";
 import { expressMiddleware } from "@apollo/server/express4";
 import server from "./config/graphql.js";
@@ -16,7 +15,7 @@ let app = express();
 
 // utilities
 app.use(morgan("dev"));
-app.use(cors(CorsOptions));
+app.use(cors());
 
 // middle-wares
 app.use(express.json());
@@ -29,7 +28,7 @@ let path = {
 };
 
 // routes
-app.use(path.api, expressMiddleware(server));
+app.use(path.api, express.json(), cors(), expressMiddleware(server));
 app.use(path.docs, swaggerUiExpress.serve, swaggerUiExpress.setup(SwaggerDoc));
 app.use(NotFound);
 app.use(ErrorHandle);
