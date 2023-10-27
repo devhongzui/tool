@@ -22,6 +22,7 @@ app.use(express.static("./public"));
 
 // routes
 app.use("/api", express.json(), cors(), expressMiddleware(server));
+app.use("/", (_, res) => res.redirect("/api"));
 app.use(NotFound);
 app.use(ErrorHandle);
 

@@ -7,21 +7,16 @@ export let search = async (_, args) => {
 
   let { name, code, division_type, codename, district_code } = args;
 
-  if (name != undefined) {
-    options.name = { $regex: name };
-  }
-  if (code != undefined) {
-    options.code = parseInt(code);
-  }
-  if (division_type != undefined) {
-    options.division_type = { $regex: division_type };
-  }
-  if (codename != undefined) {
-    options.codename = { $regex: codename };
-  }
-  if (district_code != undefined) {
-    options.district_code = parseInt(district_code);
-  }
+  if (name) options.name = { $regex: name };
+
+  if (code) options.code = parseInt(code);
+
+  if (division_type) options.division_type = { $regex: division_type };
+
+  if (codename) options.codename = { $regex: codename };
+
+  if (district_code) options.district_code = parseInt(district_code);
+
   if (Object.keys(options).length === 0) {
     return null;
   }

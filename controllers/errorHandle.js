@@ -3,7 +3,7 @@ let ErrorHandle = (err, _, res, __) => {
 
   // set locals, only providing error in development
   res.locals.status = err.status || 500;
-  res.locals.message = debugMode ? err.message : "Server Interal Error!";
+  res.locals.message = debugMode ? err.message : "Server Internal Error!";
   res.locals.error = debugMode ? err : {};
 
   // render the error page

@@ -1,17 +1,17 @@
 import {
-  show as showAddressProvinces,
-  search as searchAddressProvinces,
   fulltextSearch as fullTextSearchAddressProvinces,
+  search as searchAddressProvinces,
+  show as showAddressProvinces,
 } from "../../controllers/api/address/provinces.js";
 import {
-  show as showAddressDistricts,
-  search as searchAddressDistricts,
   fulltextSearch as fullTextSearchAddressDistricts,
+  search as searchAddressDistricts,
+  show as showAddressDistricts,
 } from "../../controllers/api/address/districts.js";
 import {
-  show as showAddressSubDistricts,
-  search as searchAddressSubDistricts,
   fulltextSearch as fullTextSearchAddressSubDistricts,
+  search as searchAddressSubDistricts,
+  show as showAddressSubDistricts,
 } from "../../controllers/api/address/subDistricts.js";
 import { show as showRandomString } from "../../controllers/api/randomstring.js";
 import { show as showMinifyJs } from "../../controllers/api/minify.js";
