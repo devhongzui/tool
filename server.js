@@ -1,5 +1,4 @@
 import "dotenv/config";
-import "./config/db.js";
 import express, { urlencoded } from "express";
 import morgan from "morgan";
 import { expressMiddleware } from "@apollo/server/express4";
@@ -26,10 +25,6 @@ app.use("/", (_, res) => res.redirect("/api"));
 app.use(NotFound);
 app.use(ErrorHandle);
 
-let nodejsPath = `http://${process.env.APP_URL}:${process.env.APP_PORT}`;
-let mongodbPath = `mongodb://${process.env.DB_USERNAME}:*****@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}?authSource=admin`;
-
 app.listen(process.env.APP_PORT, () => {
-  console.log(`NodeJs: ${nodejsPath}`);
-  console.log(`MongoDB: ${mongodbPath}`);
+  console.log(`NodeJs: http://${process.env.APP_URL}:${process.env.APP_PORT}`);
 });

@@ -1,30 +1,4 @@
 const typeDefs = `
-  type Province{
-    name: String,
-    code: Int,
-    division_type: String,
-    codename: String,
-    phone_code: Int,
-    districts: [District],
-  }
-
-  type District{
-    name: String,
-    code: Int,
-    division_type: String,
-    codename: String,
-    province_code: Int,
-    wards: [SubDistrict],
-  }
-
-  type SubDistrict{
-    name: String,
-    code: Int,
-    division_type: String,
-    codename: String,
-    district_code: Int,
-  }
-
   input MinifyJsCompressOption{
     annotations: Boolean,
     arguments: Boolean,
@@ -131,36 +105,6 @@ const typeDefs = `
   }
   
   type Query{
-    # Province
-    provinces: [Province],
-    province_search(
-      name: String,
-      code: Int,
-      division_type: String,
-      codename:String,
-      phone_code: Int): [Province],
-    province_fulltextsearch(search_query: String): [Province],
-
-    # District
-    districts: [District],
-    district_search(
-      name: String,
-      code: Int,
-      division_type: String,
-      codename:String,
-      province_code: Int): [District],
-    district_fulltextsearch(search_query: String): [District],
-
-    # Sub District
-    sub_districts: [SubDistrict],
-    sub_district_search(
-      name: String,
-      code: Int,
-      division_type: String,
-      codename:String,
-      district_code: Int): [SubDistrict],
-    sub_district_fulltextsearch(search_query: String): [SubDistrict],
-
     random_string(
       count: Int,
       length: Int,
