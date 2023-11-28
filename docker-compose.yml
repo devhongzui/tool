@@ -5,8 +5,9 @@ version: "2.1"
 
 services:
   node:
-    tty: true
+    restart: always
     image: docker.io/bitnami/node:18.18.0
+    tty: true
     ports:
       - "3000:3000"
     volumes:

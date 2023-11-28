@@ -25,6 +25,8 @@ app.use("/", (_, res) => res.redirect("/api"));
 app.use(NotFound);
 app.use(ErrorHandle);
 
-app.listen(process.env.APP_PORT, () => {
-  console.log(`NodeJs: http://${process.env.APP_URL}:${process.env.APP_PORT}`);
-});
+app.listen(process.env.APP_PORT, () =>
+  console.log(
+    `NodeJs: ${process.env.APP_SCHEME}://${process.env.APP_URL}:${process.env.APP_PORT}`,
+  ),
+);
